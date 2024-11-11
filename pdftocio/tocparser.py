@@ -23,6 +23,11 @@ def parse_entry(entry: List, nLine: int) -> ToCEntry:
             *entry[indent + 2:]      # vpos
         )
         return toc_entry
+    except ValueError as e:
+        print(f"Unable to parse toc entry {entry} from line {nLine};",
+              f"Couldn't convert '{entry[indent + 1]}' to a page number.",
+              file=sys.stderr)
+        raise e
     except IndexError as e:
         print(f"Unable to parse toc entry {entry} from line {nLine};",
               f"Need at least {indent + 2} parts but only have {len(entry)}.",
